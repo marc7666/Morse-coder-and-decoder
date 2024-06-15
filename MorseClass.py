@@ -27,11 +27,20 @@ class Morse:
         return self.final_message
 
     def decode(self):
-        pass
+        str_chunks = self.message.split()
+        for i in range(len(str_chunks)):
+            not_found = True
+            for j in range(len(self.codes)):
+                if str_chunks[i] == self.codes[j][1]:
+                    self.final_message = self.final_message + self.codes[j][0]
+                    not_found = False
+            if not_found:
+                raise Exception("Invalid morse code")
 
 
 if __name__ == "__main__":
-    test = Morse("Message goes here")
-    test.to_morse()
+    test = Morse("-- ·- ·-· -·-·")
+    #test.to_morse()
+    test.decode()
     morse2 = test.get_final_message()
     print(morse2)
