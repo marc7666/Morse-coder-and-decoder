@@ -1,6 +1,8 @@
 """Python code for coding and decoding Morse code"""
 
 import subprocess
+import time
+import winsound
 
 
 class Morse:
@@ -88,6 +90,46 @@ class Morse:
             if not_found:
                 raise ValueError("Invalid morse code")
 
+    def play_from_original(self):
+        """
+        Reproduces the morse code from the original message
+        :return: void function
+        """
+        dash = 300
+        dot = 100
+        frequency = 1000
+        letter_space = 300
+        word_space = 700
+        for char in self.message:
+            if char == '·':
+                winsound.Beep(frequency, dot)
+            elif char == '-':
+                winsound.Beep(frequency, dash)
+            elif char == ' ':
+                time.sleep(letter_space / 1000)
+            time.sleep(dot / 1000)
+        time.sleep(word_space / 1000)
+
+    def play_from_final(self):
+        """
+        Reproduces the morse code from the final message
+        :return: void function
+        """
+        dash = 300
+        dot = 100
+        frequency = 1000
+        letter_space = 300
+        word_space = 700
+        for char in self.final_message:
+            if char == '·':
+                winsound.Beep(frequency, dot)
+            elif char == '-':
+                winsound.Beep(frequency, dash)
+            elif char == ' ':
+                time.sleep(letter_space / 1000)
+            time.sleep(dot / 1000)
+        time.sleep(word_space / 1000)
+
 
 def run_pylint():
     """
@@ -103,7 +145,8 @@ def run_pylint():
 if __name__ == "__main__":
     test = Morse("Message goes here!")
     test.to_morse()
+    test.play_from_final()
     # test.decode()
-    morse2 = test.get_final_message()
-    print("The final message is: ", morse2)
+    # morse2 = test.get_final_message()
+    # print("The final message is: ", morse2)
     run_pylint()
